@@ -34,7 +34,9 @@ public class HibernateTest {
         session.save(d);
         session.save(e);
         session.getTransaction().commit();
+        //session.close(); //Ha ezt...
         
+        //session = HibernateUtil.getSessionFactory().openSession(); //...és ezt belerakod, akkor nem fog működni
         session.beginTransaction();
         User user = (User)session.get(User.class, "a");
         System.out.println(user);
