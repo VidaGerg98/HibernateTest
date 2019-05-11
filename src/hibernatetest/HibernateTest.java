@@ -9,6 +9,7 @@ import model.User;
 import model.Seat;
 import model.Show;
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.hibernate.Session;
 
 /**
@@ -21,12 +22,35 @@ public class HibernateTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        User a = new User("a", "a");
-        User b = new User("b", "b");
-        User c = new User("c", "c");
-        User d = new User("d", "d");
-        User e = new User("e", "e");
+        
         Session session = HibernateUtil.getSessionFactory().openSession();
+//        session.beginTransaction();
+        ArrayList<User> al = new ArrayList<>();
+//        al.addAll(session.createQuery("from User").list());
+//        session.getTransaction().commit();
+//        session.close();
+        
+        User a = new User();
+        a.setName("a");
+        a.setPassword("a");
+        a.setBooking(new HashMap<>());
+        User b = new User();
+        b.setName("b");
+        b.setPassword("b");
+        b.setBooking(new HashMap<>());
+        User c = new User();
+        c.setName("c");
+        c.setPassword("c");
+        c.setBooking(new HashMap<>());
+        User d = new User();
+        d.setName("d");
+        d.setPassword("d");
+        d.setBooking(new HashMap<>());
+        User e = new User();
+        e.setName("e");
+        e.setPassword("e");
+        e.setBooking(new HashMap<>());
+        
         session.beginTransaction();
         session.save(a);
         session.save(b);
@@ -34,16 +58,16 @@ public class HibernateTest {
         session.save(d);
         session.save(e);
         session.getTransaction().commit();
-        //session.close(); //Ha ezt...
+        session.close(); //Ha ezt...
         
-        //session = HibernateUtil.getSessionFactory().openSession(); //...és ezt belerakod, akkor nem fog működni
+        session = HibernateUtil.getSessionFactory().openSession(); //...és ezt belerakod, akkor nem fog működni
         session.beginTransaction();
         User user = (User)session.get(User.class, "a");
         System.out.println(user);
         session.getTransaction().commit();
         
         session.beginTransaction();
-        ArrayList<User> al = new ArrayList<>();
+        
         al.addAll(session.createQuery("from User").list());
         for (User user1 : al) {
             System.out.println(user1);
@@ -67,7 +91,6 @@ public class HibernateTest {
         
         
         session.close();
-        
         
         
         

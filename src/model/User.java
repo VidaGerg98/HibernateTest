@@ -27,10 +27,10 @@ import javax.persistence.Table;
 public class User {
     @Id
     @Column(name = "user_name", unique = true, nullable = false)
-    public final String name;
+    public String name;
     
     @Column(name = "user_password", unique = false, nullable = false)
-    private final String password;
+    private String password;
     
     @Column(name = "user_seats", unique = false, nullable = false)
     private HashMap<String, ArrayList<Seat>> booking;
@@ -79,30 +79,45 @@ public class User {
         });
         return sb.toString();
     }
-    
-    
-    //konstruktor, tostring, getterek
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
-        this.booking = new HashMap<>();
-    }
 
     @Override
     public String toString() {        
         return "Username: " + name + ", password: " + password + "\n" + printBooking();
     }
     
+    public User() {
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
         return password;
     }
-    
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public HashMap<String, ArrayList<Seat>> getBooking() {
         return booking;
     }
+
+    public void setBooking(HashMap<String, ArrayList<Seat>> booking) {
+        this.booking = booking;
+    }
+    
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
+        this.booking = new HashMap<>();
+    }
+    
+    
     
 }
